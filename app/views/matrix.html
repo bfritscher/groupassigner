@@ -1,0 +1,14 @@
+<table class="table table-bordered  table-condensed">
+<thead>
+<tr class="tbl-header">
+<th class="tbl-title">Relationship Matrix <span ng-hide="headers.length > 0">...LOADING...</span></th>
+<th ng-repeat="c in headers"  class="col"><div class="rotate" ng-bind="c"></div></th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="r in headers">
+  <th ng-bind="r" class="row"></th>
+  <td ng-repeat="c in headers" ng-bind="data[r][c].count" ng-class="{'diag': $index == $parent.$index}" title="{{data[r][c].when}}"></td>
+</tr>
+</tbody>
+</table>

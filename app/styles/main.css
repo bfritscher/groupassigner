@@ -1,0 +1,91 @@
+.container-fluid.main{
+  padding: 0 20px;
+}
+
+table {
+    overflow: hidden;
+    z-index: 1;
+}
+
+td, th, .row, .col, .ff-fix {
+    cursor: pointer;
+    position: relative;
+}
+
+.table > thead > tr > th.tbl-title{
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tbl-header th{
+  height: 160px;
+}
+.tbl-header th .rotate{
+  transform: rotate(-90deg);
+  white-space: nowrap;
+  width: 25px;
+  padding: 2px;
+}
+
+.round{
+  float:left;
+}
+
+.student{
+  cursor:pointer;
+}
+
+.student.active{
+  background-color: #ffa;
+}
+
+#assign-result{
+  position: fixed;
+  width: 80%;
+  left: 10%;
+  right: 10%;
+  max-height: 90%;
+  top: 70px;
+}
+
+#assign-result .group{
+  float:left;
+}
+
+td{
+  text-align:center;
+}
+
+.table-condensed > thead > tr > th, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > td {
+padding: 2px;
+}
+
+td.diag{
+  background-color: #ddd;
+}
+
+td:hover::before,
+.row:hover::before,
+.ff-fix:hover::before { 
+    background-color: #ffa;
+    content: '\00a0';  
+    height: 100%;
+    left: -5000px;
+    position: absolute;  
+    top: 0;
+    width: 10000px;   
+    z-index: -1;        
+}
+
+td:hover::after,
+.col:hover::after,
+.ff-fix:hover::after { 
+    background-color: #ffa;
+    content: '\00a0';  
+    height: 10000px;    
+    left: 0;
+    position: absolute;  
+    top: -5000px;
+    width: 100%;
+    z-index: -1;        
+}

@@ -1,0 +1,5 @@
+<div><label>New course: <input type="text" ng-model="newCourseName" placeholder="course name"  class="form-control"/></label> <button ng-click="create()" class="btn btn-primary">Create</button></div>
+<h2>Existing courses</h2>
+<div class="list-group">
+  <a ng-repeat="course in courses"class="list-group-item" ng-bind="course.name" ng-href="#/course/{{course.id}}"></a></li>
+</div>
