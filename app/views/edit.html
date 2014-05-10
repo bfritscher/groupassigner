@@ -1,0 +1,23 @@
+<div class="edit">
+  <div class="groups">
+    <h3>Groups  <span class="badge alert-info">{{groupsOrder.length}}</span><span class="badge">{{groups | sum}}</span></h3>
+    <div class="group"  ng-click="getListForGroup(g)" ng-class="{active: currentGroup==g}" ng-repeat="g in groupsOrder" ng-init="students=groups[g]">
+      <h4>Group {{g}} <span class="badge pull-right">{{students.length}}</span><button class="btn btn-success btn-sm">Add</button> <button class="btn btn-danger btn-xs pull-right" ng-click="deleteGroup(g);$event.stopPropagation();">Delete</button></h4>
+      <ul class="list-unstyled">
+        <li class="student" ng-repeat="s in students">{{s}} <button class="btn btn-danger btn-xs pull-right" ng-click="removeStudentFromGroup(s, g);$event.stopPropagation();">Remove</button></li>
+      </ul>
+    </div>
+    <button class="btn btn-success" ng-click="addGroup()">Add Group</button>
+    <button class="btn btn-primary" ng-click="autoAssign()">Auto Assign</button>
+  </div>
+  <div class="list">
+    <h3>Available participants <small ng-show="currentGroup">for group {{currentGroup}}</small> <span class="badge">{{list | sum}}</span></h3>
+    <ul class="list-unstyled">
+      <li class="seen" ng-repeat="i in list" ng-hide="i.length==0"><h4>Seen {{$index}} times <small>by members of group</small></h4>
+        <ul class="list-unstyled">
+          <li ng-repeat="o in i"><button class="btn btn-success btn-xs" ng-click="addStudentToGroup(o[0],currentGroup)">Add</button>
+          <span tooltip="{{o[1]}}" tooltip-trigger="mouseenter" ng-bind="o[0]" tooltip-placement="right"></span></li>
+        </ul></li>
+    </ul>
+  </div>
+</div>

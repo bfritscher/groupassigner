@@ -1,4 +1,4 @@
 'use strict';
 
 angular.module('groupAssignerApp')
-  .constant('apiURL', 'api.php');
+  .constant('apiURL', 'http://www.fritscher.ch/groups/api.php');

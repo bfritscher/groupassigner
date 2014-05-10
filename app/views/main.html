@@ -1,5 +1,28 @@
-<div><label>New course: <input type="text" ng-model="newCourseName" placeholder="course name"  class="form-control"/></label> <button ng-click="create()" class="btn btn-primary">Create</button></div>
+
+<div class="row">
+  <div class="col-md-4" ng-class="{'col-md-offset-2': !user, 'col-md-offset-4': user}">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">New course</h3>
+      </div>
+      <div class="panel-body">
+    <label><input type="text" ng-model="newCourseName" placeholder="course name"  class="form-control"/></label> <button ng-click="create()" class="btn btn-primary">Create</button>    
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-md-4" ng-hide="user">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Private workspace</h3>
+      </div>
+      <div class="panel-body">
+        <button class="btn btn-danger" ng-click="login()">Login with Google</button>
+      </div>
+    </div>
+  </div>
+</div>
 <h2>Existing courses</h2>
 <div class="list-group">
-  <a ng-repeat="course in courses"class="list-group-item" ng-bind="course.name" ng-href="#/course/{{course.id}}"></a></li>
+  <a ng-repeat="course in model.courses"class="list-group-item" ng-bind="course.name" ng-href="#/course/{{course.id}}"></a></li>
 </div>

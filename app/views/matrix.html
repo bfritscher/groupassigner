@@ -1,3 +1,4 @@
+<div class="scroll">
 <table class="table table-bordered  table-condensed">
 <thead>
 <tr class="tbl-header">
@@ -8,7 +9,10 @@
 <tbody>
 <tr ng-repeat="r in headers">
   <th ng-bind="r" class="row"></th>
-  <td ng-repeat="c in headers" ng-bind="data[r][c].count" ng-class="{'diag': $index == $parent.$index}" title="{{data[r][c].when}}"></td>
+  <td ng-repeat="c in headers" ng-class="{'diag': $index == $parent.$index}">
+    <div tooltip="{{data[r][c].when}}" tooltip-trigger="mouseenter" ng-bind="data[r][c].count"></div>
+  </td>
 </tr>
 </tbody>
 </table>
+</div>

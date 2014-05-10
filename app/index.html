@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="groupAssignerApp">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -35,19 +36,29 @@
       </button>
       <a class="navbar-brand" href="#">Group Assigner</a>
     </div>
-
+    <div class="profile pull-right" ng-show="user">
+        <div>
+          <div class="name" ng-bind="user.displayName"></div>
+          <a href="#/" ng-click="logout()">Sign out</a>
+        </div>
+        <img ng-src="{{user.image.url}}" class="img-responsive img-circle" alt="profile">
+      </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+      <ul ng-hide="state == ''" class="nav navbar-nav">
         <li ng-class="{active:state == 'CourseCtrl'}"><a ng-href="#/course/{{course.id}}">Groups</a></li>
         <li ng-class="{active:state == 'MatrixCtrl'}"><a ng-href="#/matrix/{{course.id}}">Relationship matrix</a></li>
+        <li ng-show="state == 'EditCtrl'" ng-class="{active:state == 'EditCtrl'}"><a ng-href="#/edit/{{course.id}}/{{course.round}}">Round edit</a></li>
       </ul>
     </div>
   </div>
 </nav>
     <!-- Add your site or application content here -->
     <div class="container-fluid main" ng-view=""></div>
-
+    
+    
+    <div id="loading" ng-show="loading"><h1>Assigning</h1></div>
+    <div class="modal-backdrop fade in" ng-show="loading"></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -55,7 +66,7 @@
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
+       ga('create', 'UA-345441-1');
        ga('send', 'pageview');
     </script>
 
@@ -64,6 +75,7 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+    <script src="//apis.google.com/js/api.js"></script>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -71,6 +83,8 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -81,6 +95,10 @@
         <script src="scripts/services/apiurl.js"></script>
         <script src="scripts/controllers/course.js"></script>
         <script src="scripts/filters/length.js"></script>
+        <script src="scripts/filters/sum.js"></script>
+        <script src="scripts/controllers/edit.js"></script>
+        <script src="scripts/services/config.js"></script>
+        <script src="scripts/services/user.js"></script>
         <!-- endbuild -->
 </body>
 </html>

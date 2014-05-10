@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('groupAssignerApp')
-  .controller('MainCtrl', function ($scope, $http, apiURL, $location) {
-    $http.get(apiURL + '?action=listcourses')
-    .success(function(data){
-      $scope.courses = data;
-    });
+  .controller('MainCtrl', function ($scope, $http, apiURL, $location, user) {
+    ga('send', 'pageview', $location.path());
+    
+    $scope.model = user;
+    user.getCourses();
     
     $scope.create = function(){
       if($scope.newCourseName.length > 3){
@@ -15,5 +15,9 @@ angular.module('groupAssignerApp')
           $location.path('/course/' + id);
         });
       }
+    };
+    
+    $scope.login = function(){
+      user.login();
     };
   });
