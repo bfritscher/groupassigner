@@ -32,6 +32,10 @@ td, th, .row, .col, .ff-fix {
     position: relative;
 }
 
+#carousel{
+  height: 5%;
+}
+
 #loading{
   color: #428bca;
   position:fixed;
@@ -46,7 +50,7 @@ td, th, .row, .col, .ff-fix {
 
 #loading h1{
   text-align:center;
-  background-image: url(../images/loading.gif);
+  background-image: url(/images/loading.gif);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 30% 0;
@@ -209,11 +213,11 @@ td.diag{
 .table .col:hover::after,
 .table .ff-fix:hover::after { 
     background-color: #ffa;
-    content: '\00a0';  
-    height: 10000px;    
+    content: '\00a0';
+    height: 10000px;
     left: 0;
     position: absolute;  
     top: -5000px;
     width: 100%;
-    z-index: -1;        
+    z-index: -1;
 }

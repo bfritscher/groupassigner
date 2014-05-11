@@ -52,7 +52,7 @@ angular
       $location.path('/');
     });
     
-    if($cookies.PHPSESSID){
+    if($cookies.PHPSESSID && $cookies.trylogin){
       user.login();
     }
   });

@@ -40,6 +40,7 @@ switch($_GET['action']){
       $tokenAudience = $userInfoArray['audience'];
       if ( strcasecmp( $tokenAudience, GOOGLE_FULL_CLIENT_ID ) === 0) {
         $_SESSION['user_id'] = $_GET['user_id'];
+        setcookie("trylogin", "1", 0);
         echo json_encode(listCourses($_GET['user_id']));
         die();
       }
@@ -51,6 +52,7 @@ switch($_GET['action']){
     //remove PHPSESSID from browser
     if ( isset( $_COOKIE[session_name()] ) )
     setcookie( session_name(), "", time()-3600, "/");
+    setcookie( "trylogin", "", time()-3600);
     //clear session from globals
     $_SESSION = array();
     //clear session from disk

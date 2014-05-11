@@ -5,8 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
+    <title>Group Assigner: maximize exposure between participants</title>
+    <meta name="description" content="group assign student participant maximize exposure">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> 
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -57,7 +57,7 @@
     <div class="container-fluid main" ng-view=""></div>
     
     
-    <div id="loading" ng-show="loading"><h1>Assigning</h1></div>
+    <div id="loading"  ng-cloak class="ng-cloak" ng-show="loading"><h1>Assigning</h1></div>
     <div class="modal-backdrop fade in" ng-show="loading"></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
