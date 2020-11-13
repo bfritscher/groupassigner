@@ -50,7 +50,7 @@ td, th, .row, .col, .ff-fix {
 
 #loading h1{
   text-align:center;
-  background-image: url(/images/loading.gif);
+  background-image: url('images/loading.gif');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 30% 0;
@@ -198,25 +198,25 @@ td.diag{
 
 .table td:hover::before,
 .table .row:hover::before,
-.table .ff-fix:hover::before { 
+.table .ff-fix:hover::before {
     background-color: #ffa;
-    content: '\00a0';  
+    content: '\00a0';
     height: 100%;
     left: -5000px;
-    position: absolute;  
+    position: absolute;
     top: 0;
-    width: 10000px;   
-    z-index: -1;        
+    width: 10000px;
+    z-index: -1;
 }
 
 .table td:hover::after,
 .table .col:hover::after,
-.table .ff-fix:hover::after { 
+.table .ff-fix:hover::after {
     background-color: #ffa;
     content: '\00a0';
     height: 10000px;
     left: 0;
-    position: absolute;  
+    position: absolute;
     top: -5000px;
     width: 100%;
     z-index: -1;
