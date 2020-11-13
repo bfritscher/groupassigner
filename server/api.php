@@ -1,9 +1,9 @@
 <?php
 //cors();
-define(GOOGLE_FULL_CLIENT_ID, "791894532646-u29r006qaf1avmtk0sl1sn4094ge4vo9.apps.googleusercontent.com");
+define("GOOGLE_FULL_CLIENT_ID", "791894532646-u29r006qaf1avmtk0sl1sn4094ge4vo9.apps.googleusercontent.com");
 
 
-session_start(); 
+session_start();
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -109,7 +109,7 @@ switch($_GET['action']){
     deleteCourse($_GET['course_id']);
     echo '';
   break;
-  case 'make':  
+  case 'make':
     if($_GET['course_id'] && $_GET['groups']){
       $round = getNextRound($_GET['course_id']);
       if($_POST['students']){
@@ -122,7 +122,7 @@ switch($_GET['action']){
   case 'fill':
     makeGroups($_GET['course_id'], $_GET['round'], $_GET['groups']);
     echo json_encode(getRound($_GET['course_id'], $_GET['round']));
-  break;  
+  break;
   case 'crosstab':
     if($_GET['course_id']){
       echo json_encode(getCrossTab($_GET['course_id']));
@@ -218,7 +218,7 @@ function getAllAvailableStudentsForGroup($course_id, $round, $group_label){
   while($count_students < $total_students){
     $rows = getAvailableStudentsForGroupSeenNTimes($course_id, $round, $group_label, $n);
     $students[$n] = $rows;
-    $count_students += count($rows);  
+    $count_students += count($rows);
     $n++;
   }
   return $students;
@@ -227,7 +227,7 @@ function getAllAvailableStudentsForGroup($course_id, $round, $group_label){
 function getAvailableStudentsForGroup($course_id, $round, $group_label){
   global $mysqli;
   $stmt = $mysqli->prepare("SELECT name FROM students
-  WHERE course_id = ? 
+  WHERE course_id = ?
   AND name NOT IN ( -- not used for this round
     SELECT student
     FROM assignments
@@ -244,10 +244,10 @@ function getAvailableStudentsForGroup($course_id, $round, $group_label){
       AND s1.student <> s2.student
       AND s1.course_id = ?
       JOIN assignments s3
-      ON s3.course_id = ? 
-      AND s3.round = ? 
-      AND s3.group_label = ? 
-      AND s3.student = s1.student   
+      ON s3.course_id = ?
+      AND s3.round = ?
+      AND s3.group_label = ?
+      AND s3.student = s1.student
   );");
   $stmt->bind_param('iiiiiii', $course_id, $course_id, $round, $course_id, $course_id, $round, $group_label);
   $stmt->execute();
@@ -273,7 +273,7 @@ FROM (SELECT s2.student, COUNT(*) AS nb, CONCAT(COUNT(*), 'x ', s1.student) as o
       ON s3.course_id = ?
       AND s3.round = ?
       AND s3.group_label = ?
-      AND s3.student = s1.student  
+      AND s3.student = s1.student
 GROUP BY s1.student, s2.student
 ) AS seen
 WHERE student NOT IN ( -- not used for this round
@@ -307,7 +307,7 @@ function getNextRound($course_id){
 
 function updateStudents($course_id, $students){
   global $mysqli;
-  
+
   $stmt = $mysqli->prepare("DELETE FROM students WHERE course_id = ?");
   $stmt->bind_param("i", $course_id);
   $stmt->execute();
@@ -380,15 +380,15 @@ function getNumberToAssign($course_id, $round){
 
 function makeGroups($course_id, $round, $group_count){
   global $mysqli;
-  
+
   $total_students = getNumberToAssign($course_id, $round);
-  
+
   //init groups
   $groups = array();
   for($g=1; $g <= $group_count; $g++){
     $groups['g' . $g] = 0;
   }
-  
+
   //fetch existing
   $stmt = $mysqli->prepare("SELECT group_label, COUNT(*) AS total
 FROM assignments
@@ -404,7 +404,7 @@ GROUP BY group_label");
   foreach($rows as $row){
     $groups['g' . $row[0]] = $row[1];
   }
-  
+
   while($total_students > 0){
     //get lowest group count
     array_multisort(array_values($groups), SORT_ASC, array_keys($groups), SORT_ASC, $groups); //SORT_NATURAL when on php 5.4
@@ -420,9 +420,9 @@ GROUP BY group_label");
         $rows = getAvailableStudentsForGroupSeenNTimes($course_id, $round, $g, $n);
       } while(count($rows) == 0);
     }
-    
+
     //pick random  & insert
-    
+
     $stmt = $mysqli->prepare("INSERT INTO assignments(course_id, round, group_label, student) VALUES (?, ?, ?, ?);");
     $stmt->bind_param('iiss', $course_id, $round, $g, $rows[array_rand($rows)][0]);
     if($stmt->execute()){
@@ -438,7 +438,7 @@ function getCrossTab($course_id){
   $stmt = $mysqli->prepare("SELECT s.name as 'from', b.student as 'to', COUNT(*) as 'count',
 GROUP_CONCAT(CONCAT('Round ', b.round, ' Group ', b.group_label) ORDER BY b.round, b.group_label SEPARATOR '\n') as 'when'
 FROM students s
-LEFT JOIN assignments a ON 
+LEFT JOIN assignments a ON
 s.name = a.student
 AND s.course_id = a.course_id
 LEFT JOIN assignments b
@@ -469,7 +469,7 @@ function cors() {
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
+            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
             header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
